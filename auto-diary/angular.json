@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "car-logbook": {
+    "auto-diary": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -56,10 +56,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "car-logbook:build:production"
+              "buildTarget": "auto-diary:build:production"
             },
             "development": {
-              "buildTarget": "car-logbook:build:development"
+              "buildTarget": "auto-diary:build:development"
             }
           },
           "defaultConfiguration": "development"
