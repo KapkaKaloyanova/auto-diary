@@ -16,3 +16,11 @@ export interface UserRegister {
     password: string;
     tel: string;
 }
+
+export interface AuthResponse {
+    _id: string;
+    username: string;
+    email: string;
+    tel: string;
+    accessToken: string;
+}
