@@ -1,0 +1,23 @@
+<header>
+  <nav>
+    <div class="logo" routerLink="/home">Auto<span>Diary</span></div>
+
+    <div class="nav-links">
+      @if (!isLoggedIn()) {
+        <a class="nav-link nav-btn" routerLink="/cars" routerLinkActive="active">автомобили</a>
+        <a class="nav-link nav-btn" routerLink="/login" routerLinkActive="active">влез</a>
+      } @else {
+        <div class="dropdown">
+          <span class="nav-link nav-btn">моите коли ▼</span>
+        </div>
+        <a class="nav-link nav-btn" routerLink="/user" routerLinkActive="active"
+          >{{ username() }}'s профил</a
+        >
+        <div class="nav-icons">
+          <span class="notification-bell">🔔</span>
+        </div>
+        <button class="nav-btn" (click)="logout()">изход</button>
+      }
+    </div>
+  </nav>
+</header>

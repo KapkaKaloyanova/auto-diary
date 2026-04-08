@@ -1,0 +1,37 @@
+/* Подредба на иконите и бутоните */
+.nav-icons {
+  display: flex;
+  align-items: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 18px;
+  margin: 0 10px;
+}
+
+.nav-link.active {
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+}
+
+/* Проста стилизация за Dropdown индикатора */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.dropdown:hover .nav-link {
+  color: var(--text-main);
+}
+
+/* Скриваме бутона Logout, ако е мобилна версия или искаме по-малък размер */
+.nav-btn {
+  border: 1px solid var(--primary-border);
+  background: var(--primary-low-op);
+  color: var(--text-main);
+  padding: 6px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
