@@ -9,8 +9,8 @@ import { AuthService } from '../../core/services/auth.service';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-   router = inject(Router);
-   authService = inject(AuthService);
+   private router = inject(Router);
+   private authService = inject(AuthService);
   // carService = inject(CarService); // Тук ще взимаме колите
 
   isLoggedIn = this.authService.isLoggedIn;
