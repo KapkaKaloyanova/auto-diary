@@ -1,1 +1,221 @@
 /* You can add global styles to this file, and also import other style files */
+/* 1. ДИЗАЙН ПРОМЕНЛИВИ (ROOT COLORS) */
+:root {
+  /* Основни цветове */
+  --bg-body: #101525;
+  --bg-card: rgba(255, 255, 255, 0.03);
+  --bg-card-hover: rgba(255, 255, 255, 0.05);
+  
+  /* Ацентни цветове (Сините цветове) */
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-low-op: rgba(59, 130, 246, 0.15);
+  --primary-border: rgba(59, 130, 246, 0.4);
+
+  /* Текст */
+  --text-main: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-dark: #475569;
+
+  /* Линии и граници */
+  --border-light: rgba(255, 255, 255, 0.08);
+  --border-card: rgba(255, 255, 255, 0.07);
+}
+
+/* 2. ГЛОБАЛЕН RESET */
+*, *::before, *::after { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg-body);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* 3. ОСНОВЕН LAYOUT (Структура) */
+
+main {
+  min-height: calc(100vh - 70px); /* Изваждаме височината на навигацията */
+  display: block; /* За по-стари браузъри */
+
+  padding-bottom: 40px; 
+}
+
+/* 4. НАВИГАЦИЯ (NAV) */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 48px;
+  border-bottom: 0.5px solid var(--border-light);
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-main);
+  letter-spacing: 0.5px;
+}
+
+.logo span { color: var(--primary); }
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+.nav-link {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-link:hover { color: var(--text-main); }
+
+.nav-btn {
+  font-size: 13px;
+  color: var(--text-main);
+  background: var(--primary-low-op);
+  border: 0.5px solid var(--primary-border);
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.nav-btn:hover { background: rgba(59, 130, 246, 0.25); }
+
+/* 5. HERO СЕКЦИЯ */
+.hero {
+  padding: 80px 48px 56px;
+  text-align: center;
+}
+
+.hero-tag {
+  display: inline-block;
+  font-size: 12px;
+  color: var(--primary);
+  background: rgba(59, 130, 246, 0.1);
+  border: 0.5px solid rgba(59, 130, 246, 0.25);
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 28px;
+  letter-spacing: 0.5px;
+}
+
+.hero h1 {
+  font-size: 42px;
+  font-weight: 500;
+  color: var(--text-main);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.hero h1 span { color: var(--primary); }
+
+.hero p {
+  font-size: 16px;
+  color: var(--text-muted);
+  max-width: 440px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+/* 6. БУТОНИ (ГЛОБАЛНИ КЛАСОВЕ) */
+.hero-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.btn-primary {
+  font-size: 14px;
+  color: #fff;
+  background: var(--primary-hover);
+  border: none;
+  padding: 11px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover { background: #1d4ed8; }
+
+.btn-secondary {
+  font-size: 14px;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 0.5px solid rgba(255, 255, 255, 0.12);
+  padding: 11px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover { 
+  border-color: rgba(255, 255, 255, 0.25); 
+  color: var(--text-main); 
+}
+
+/* 7. КАРТИ (CARDS) */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Вече е адаптивна! */
+  gap: 14px;
+  padding: 0 48px 64px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 0.5px solid var(--border-card);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.2s;
+}
+
+.card:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(59, 130, 246, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.card-icon svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--primary);
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.card h3 {
+  font-size: 14px;
+  font-weight: 500;
+  color: #cbd5e1;
+  margin-bottom: 8px;
+}
+
+.card p {
+  font-size: 13px;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
