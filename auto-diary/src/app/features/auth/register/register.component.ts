@@ -4,6 +4,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { Router , RouterLink} from '@angular/router';
 import { UserRegister } from '../../../shared/interfaces/user';
 
+
 @Component({
   selector: 'app-register',
   imports: [ReactiveFormsModule, RouterLink],
@@ -24,8 +25,8 @@ export class RegisterComponent {
     validators: this.passwordMatchValidator
   });
 
-  // Валидатор за съвпадение на паролите
-  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+    // Валидатор за съвпадение на паролите
+   passwordMatchValidator (control: AbstractControl): ValidationErrors | null {
     const password = control.get('password')?.value;
     const rePassword = control.get('rePassword')?.value;
     return password === rePassword ? null : { passwordMismatch: true };

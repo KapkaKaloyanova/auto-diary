@@ -5,5 +5,6 @@ export interface Car {
     year: number;
     initialMileage: number;
     fuelType: 'benzin' | 'diesel' | 'hybrid' | 'electric' | 'gas';
-    ownerId: string;
+    _ownerId: string;
+    _createdOn?: string;
 }
