@@ -10,36 +10,36 @@
       <p>Пробег: {{ currentCar()?.initialMileage }} км</p>
       <p>Тип на гориво: {{ currentCar()?.fuelType }}</p>
     </div>
-    <!-- табове навигация -->
-    <div class="tabs">
-      <button (click)="activeTab.set('dashboard')" [class.active]="activeTab() === 'dashboard'">
-        Табло
-      </button>
-      <button (click)="activeTab.set('fuel')" [class.active]="activeTab() === 'fuel'">
-        Гориво
-      </button>
-      <button (click)="activeTab.set('service')" [class.active]="activeTab() === 'service'">
-        Сервиз
-      </button>
-      <button (click)="activeTab.set('documents')" [class.active]="activeTab() === 'documents'">
-        Документи
-      </button>
-    </div>
-
-    <!-- съдържание -->
-    @if (activeTab() === 'dashboard') {
-      <app-car-dashboard [car]="currentCar()!" />
-    }
-    @if (activeTab() === 'fuel') {
-      <app-car-fuel [car]="currentCar()!" />
-    }
-    @if (activeTab() === 'service') {
-      <app-car-service [car]="currentCar()!" />
-    }
-    @if (activeTab() === 'documents') {
-      <app-car-documents [car]="currentCar()!" />
-    }
     @if (isOwner()) {
+      <!-- табове навигация -->
+      <div class="tabs">
+        <button (click)="activeTab.set('dashboard')" [class.active]="activeTab() === 'dashboard'">
+          Табло
+        </button>
+        <button (click)="activeTab.set('fuel')" [class.active]="activeTab() === 'fuel'">
+          Гориво
+        </button>
+        <button (click)="activeTab.set('service')" [class.active]="activeTab() === 'service'">
+          Сервиз
+        </button>
+        <button (click)="activeTab.set('documents')" [class.active]="activeTab() === 'documents'">
+          Документи
+        </button>
+      </div>
+  
+      <!-- съдържание -->
+      @if (activeTab() === 'dashboard') {
+        <app-car-dashboard [car]="currentCar()!" />
+      }
+      @if (activeTab() === 'fuel') {
+        <app-car-fuel [car]="currentCar()!" />
+      }
+      @if (activeTab() === 'service') {
+        <app-car-service [car]="currentCar()!" />
+      }
+      @if (activeTab() === 'documents') {
+        <app-car-documents [car]="currentCar()!" />
+      }
       <div class="car-actions">
         <a [routerLink]="['/cars', currentCar()?._id, 'edit']" class="btn-primary">Редактирай</a>
         <a (click)="onDelete(currentCar()!._id)" class="btn-primary">Изтрий</a>
