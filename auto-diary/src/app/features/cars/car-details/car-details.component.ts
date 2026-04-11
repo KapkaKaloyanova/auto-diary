@@ -1,12 +1,16 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { CarService } from '../../../core/services/car.service';
 import { Car } from '../../../shared/interfaces/car';
 import { AuthService } from '../../../core/services/auth.service';
+import { CarDashboardComponent } from '../components/car-dashboard/car-dashboard.component';
+import { CarServiceComponent } from '../components/car-service/car-service.component';
+import { CarDocumentsComponent } from '../components/car-documents/car-documents.component';
+import { CarFuelComponent } from '../components/car-fuel/car-fuel.component';
 
 @Component({
   selector: 'app-car-details',
-  imports: [RouterLink],
+  imports: [RouterLink, CarDashboardComponent, CarFuelComponent, CarServiceComponent, CarDocumentsComponent],
   templateUrl: './car-details.component.html',
   styleUrl: './car-details.component.css',
 })
@@ -17,6 +21,7 @@ export class CarDetailsComponent implements OnInit {
   private router = inject(Router);
 
   currentCar = signal<Car | null>(null);
+  activeTab = signal<'dashboard' | 'fuel' | 'service' | 'documents'>('dashboard');
 
   isOwner = computed(() => {
     return this.currentCar()?._ownerId === this.authService.currentUser()?._id
@@ -24,14 +29,16 @@ export class CarDetailsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const carId = this.activatedRoute.snapshot.params['id'];
+    this.activatedRoute.params.subscribe((params: Params) => {
+      const carId = params['id'];
+      if (carId) {
+        this.carService.getCarById(carId)
+          .subscribe({
+            next: car => this.currentCar.set(car)
+          });
+      }
+    });
 
-    if (carId) {
-      this.carService.getCarById(carId)
-        .subscribe({
-          next: car => this.currentCar.set(car)
-        });
-    }
   }
 
   onDelete(carId: string) {

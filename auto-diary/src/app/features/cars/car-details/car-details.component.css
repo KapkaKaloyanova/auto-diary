@@ -1,0 +1,32 @@
+.car-details {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.car-image img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 1px solid var(--border-card);
+}
+
+.car-info {
+  padding: 20px;
+}
+
+.car-info h3 {
+  margin: 0 0 10px 0;
+  color: var(--text-main);
+}
+
+.car-info p {
+  margin: 5px 0;
+  color: var(--text-secondary);
+}
+.car-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 15px;
+  gap: 15px;
+}
