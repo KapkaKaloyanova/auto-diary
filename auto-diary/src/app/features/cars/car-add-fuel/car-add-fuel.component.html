@@ -13,7 +13,7 @@
       </div>
       <div class="row">
         <div class="form-group">
-          <input type="text" formControlName="mileage" placeholder="Километраж" />
+          <input type="number" formControlName="mileage" placeholder="Километраж" />
           @if (
             fuelRecordForm.get('mileage')?.errors?.['required'] &&
             fuelRecordForm.get('mileage')?.touched
@@ -85,13 +85,16 @@
           <option value="offroad">оффроуд</option>
         </select>
       </div>
+      @if (errorMessage) {
+        <p class="error">{{ errorMessage }}</p>
+      }
       <div class="form-actions">
         <button type="submit" [disabled]="fuelRecordForm.invalid" class="btn-primary auth-btn">
           Запис на горивото
         </button>
         <div class="row">
-            <a class="reset-link" (click)="onReset()">Изчисти формата</a>
-            <a class="reset-link" (click)="onCancel()">Откажи</a>
+          <a class="reset-link" (click)="onReset()">Изчисти формата</a>
+          <a class="reset-link" (click)="onCancel()">Откажи</a>
         </div>
       </div>
     </form>

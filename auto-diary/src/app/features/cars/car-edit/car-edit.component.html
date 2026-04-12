@@ -35,8 +35,7 @@
         <div class="form-group">
           <input type="text" formControlName="engineType" placeholder="Двигател" />
           @if (
-            editForm.get('engineType')?.errors?.['required'] &&
-            editForm.get('engineType')?.touched
+            editForm.get('engineType')?.errors?.['required'] && editForm.get('engineType')?.touched
           ) {
             <p class="error">Двигателя е задължителен</p>
           }
@@ -73,8 +72,8 @@
             <p class="error">Горивото е задължително</p>
           }
         </div>
-      </div>
 
+      </div>
       <div class="form-group">
         <input type="text" formControlName="imageUrl" placeholder="Линк към снимка" />
       </div>
@@ -83,7 +82,7 @@
         <button type="submit" [disabled]="editForm.invalid" class="btn-primary auth-btn">
           Редактирай
         </button>
-        <a  class="reset-link" (click)="editForm.reset()">Изчисти формата</a>
+        <a class="reset-link" (click)="editForm.reset()">Изчисти формата</a>
       </div>
     </form>
   </div>
