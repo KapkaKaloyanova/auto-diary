@@ -1,10 +1,31 @@
 <div class="catalog-container">
   <div class="catalog-header">
-    <h1>Всички автомобили</h1>
+    <h1>Aвтомобили галерия</h1>
     <p>Разгледайте всички автомобили в базата данни.</p>
   </div>
   @if (isLoading()) {
     <div class="loader">Зареждане...</div>
+  }
+  @if (isLoggedIn()) {
+    <div>
+      <h3>Моите автомобили</h3>
+      <div class="cars-grid">
+        @for (car of myCars(); track car._id) {
+          <app-car-card [car]="car" />
+        } @empty {
+          <div class="no-cars">
+            <p>Все още нямате добавени вашиавтомобили.</p>
+            <a routerLink="/cars/create" class="btn-primary">Добави автомобил</a>
+          </div>
+        }
+      </div>
+      <h3>Други автомобили</h3>
+      <div class="cars-grid">
+        @for (car of otherCars(); track car._id) {
+          <app-car-card [car]="car" />
+        }
+      </div>
+    </div>
   } @else {
     <div class="cars-grid">
       @for (carItem of carsList(); track carItem._id) {
