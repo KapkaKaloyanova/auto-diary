@@ -29,7 +29,7 @@ export class CarAddFuelComponent implements OnInit, OnDestroy {
     price: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
     roadType: new FormControl<FuelRecord['roadType']>('city'),
     gasStation: new FormControl<string>(''),
-    gasStationAddress: new FormControl<string>(''),
+    comment: new FormControl<string>(''),
   });
 
   ngOnInit(): void {

@@ -8,5 +8,5 @@ export interface FuelRecord {
     carId: string;
     roadType: 'city' | 'highway' | 'offroad' ;
     gasStation: string;
-    gasStationAddress: string;
+    comment: string;
 }
