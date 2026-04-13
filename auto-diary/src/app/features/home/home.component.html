@@ -1,33 +1,43 @@
- <div class="hero">
-    <div class="hero-tag">твоят автомобилен дневник</div>
-    <h1>Следи всичко за<br><span>колата си</span></h1>
-    <p>Гориво, сервизи, документи – всичко на едно място. Просто и прегледно.</p>
-    <div class="hero-btns">
+<div class="hero">
+  <div class="hero-tag">твоят автомобилен дневник</div>
+  <h1>Следи всичко за<br /><span>колата си</span></h1>
+  <p>Гориво, сервизи, документи – всичко на едно място. Просто и прегледно.</p>
+  <div class="hero-btns">
+    <a class="btn-secondary" routerLink="/cars">Разгледай</a>
+    @if (isLoggedIn()) {
+      <a class="btn-primary" routerLink="/cars/create">Добави кола</a>
+    } @else {
       <a class="btn-primary" routerLink="/register">Започни сега</a>
-      <a class="btn-secondary" routerLink="/cars">Разгледай</a>
-    </div>
+    }
   </div>
+</div>
 
-  <div class="cards">
-    <div class="card">
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24"><path d="M3 3h18M3 8h18M3 13h10"/></svg>
-      </div>
-      <h3>Дневник за гориво</h3>
-      <p>Следи разхода и цените на всяко зареждане</p>
+<div class="cards">
+  <div class="card">
+    <div class="card-icon">
+      <svg viewBox="0 0 24 24"><path d="M3 3h18M3 8h18M3 13h10" /></svg>
     </div>
-    <div class="card">
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12"/></svg>
-      </div>
-      <h3>Сервизна история</h3>
-      <p>Записвай всеки ремонт и планирай следващия</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-      </div>
-      <h3>Документи</h3>
-      <p>Застраховки, данъци и виньетки с напомняния</p>
-    </div>
+    <h3>Дневник за гориво</h3>
+    <p>Следи разхода и цените на всяко зареждане</p>
   </div>
+  <div class="card">
+    <div class="card-icon">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3" />
+        <path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12" />
+      </svg>
+    </div>
+    <h3>Сервизна история</h3>
+    <p>Записвай всеки ремонт и планирай следващия</p>
+  </div>
+  <div class="card">
+    <div class="card-icon">
+      <svg viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="16" rx="2" />
+        <path d="M16 2v4M8 2v4M3 10h18" />
+      </svg>
+    </div>
+    <h3>Документи</h3>
+    <p>Застраховки, данъци и виньетки с напомняния</p>
+  </div>
+</div>

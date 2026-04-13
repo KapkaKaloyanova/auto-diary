@@ -18,7 +18,7 @@ export class CarCatalogComponent implements OnInit {
   carsList = signal<Car[]>([]);
   isLoading = signal(true);
 
-  isLoggedIn = computed(() => this.authService.isLoggedIn());
+  isLoggedIn = this.authService.isLoggedIn;
 
   myCars = computed(() => {
     return this.carsList().filter(car => car._ownerId === this.authService.currentUser()?._id);
