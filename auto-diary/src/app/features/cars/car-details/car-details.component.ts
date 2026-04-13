@@ -7,10 +7,11 @@ import { CarDashboardComponent } from '../components/car-dashboard/car-dashboard
 import { CarServiceComponent } from '../components/car-service/car-service.component';
 import { CarDocumentsComponent } from '../components/car-documents/car-documents.component';
 import { CarFuelComponent } from '../components/car-fuel/car-fuel.component';
+import { DecimalPipe, TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-car-details',
-  imports: [RouterLink, CarDashboardComponent, CarFuelComponent, CarServiceComponent, CarDocumentsComponent],
+  imports: [RouterLink, CarDashboardComponent, CarFuelComponent, CarServiceComponent, CarDocumentsComponent, DecimalPipe, TitleCasePipe],
   templateUrl: './car-details.component.html',
   styleUrl: './car-details.component.css',
 })
@@ -22,6 +23,7 @@ export class CarDetailsComponent implements OnInit {
 
   currentCar = signal<Car | null>(null);
   activeTab = signal<'dashboard' | 'fuel' | 'service' | 'documents'>('dashboard');
+  isLoading = signal(false);
 
   isOwner = computed(() => {
     return this.currentCar()?._ownerId === this.authService.currentUser()?._id
@@ -42,11 +44,20 @@ export class CarDetailsComponent implements OnInit {
   }
 
   onDelete(carId: string) {
-    this.carService.deleteCar(carId).subscribe({
-      next: () => {
-        this.currentCar.set(null);
-        this.router.navigate(['/cars']);
+    if (this.isOwner()) {
+
+      if (confirm('Сигурни ли сте, че искате да изтриете този автомобил?')) {
+        this.isLoading.set(true);
+
+        this.carService.deleteCar(carId).subscribe({
+          next: () => {
+            this.currentCar.set(null);
+            this.router.navigate(['/cars']);
+            this.isLoading.set(false);
+          },
+          error: () => this.isLoading.set(false)
+        });
       }
-    });
+    }
   }
 }

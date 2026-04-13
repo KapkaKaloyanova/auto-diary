@@ -1,51 +1,84 @@
-<div class="car-details">
+<div class="car-details-container">
   @if (currentCar()) {
-    <div class="car-image">
-      <img [src]="currentCar()?.imageUrl || '/images/car-placeholder.png'" alt="Car image" />
-    </div>
-    <div class="car-info">
-      <h3>{{ currentCar()?.brand }} {{ currentCar()?.model }}</h3>
-      <p>Година: {{ currentCar()?.year }}</p>
-      <p>Двигател: {{ currentCar()?.engineType }}</p>
-      <p>Начален пробег: {{ currentCar()?.initialMileage }} км</p>
-      <p>Тип на гориво: {{ currentCar()?.fuelType }}</p>
-    </div>
-    @if (isOwner()) {
-      <!-- табове навигация -->
-      <div class="tabs">
-        <button (click)="activeTab.set('dashboard')" [class.active]="activeTab() === 'dashboard'">
-          Табло
-        </button>
-        <button (click)="activeTab.set('fuel')" [class.active]="activeTab() === 'fuel'">
-          Гориво
-        </button>
-        <button (click)="activeTab.set('service')" [class.active]="activeTab() === 'service'">
-          Сервиз
-        </button>
-        <button (click)="activeTab.set('documents')" [class.active]="activeTab() === 'documents'">
-          Документи
-        </button>
+    <aside class="car-sidebar">
+      <div class="car-image">
+        <img [src]="currentCar()?.imageUrl || '/images/car-placeholder.png'" alt="Car image" />
       </div>
-  
-      <!-- съдържание -->
-      @if (activeTab() === 'dashboard') {
-        <app-car-dashboard [car]="currentCar()!" />
-      }
-      @if (activeTab() === 'fuel') {
-        <app-car-fuel [car]="currentCar()!" />
-      }
-      @if (activeTab() === 'service') {
-        <app-car-service [car]="currentCar()!" />
-      }
-      @if (activeTab() === 'documents') {
-        <app-car-documents [car]="currentCar()!" />
-      }
-      <div class="car-actions">
-        <a [routerLink]="['/cars', currentCar()?._id, 'edit']" class="btn-primary">Редактирай</a>
-        <a (click)="onDelete(currentCar()!._id)" class="btn-primary">Изтрий</a>
+
+      <div class="car-info-card">
+        <h3>{{ currentCar()?.brand | titlecase }} {{ currentCar()?.model | titlecase }}</h3>
+
+        <div class="info-grid">
+          <div class="info-row">
+            <span>Година:</span> <strong>{{ currentCar()?.year }}</strong>
+          </div>
+          <div class="info-row">
+            <span>Двигател:</span> <strong>{{ currentCar()?.engineType }}</strong>
+          </div>
+          <div class="info-row">
+            <span>Пробег:</span> <strong>{{ currentCar()?.initialMileage | number }} км</strong>
+          </div>
+          <div class="info-row">
+            <span>Гориво:</span> <strong>{{ currentCar()?.fuelType }}</strong>
+          </div>
+        </div>
       </div>
-    }
+      @if (isOwner()) {
+        <div class="car-actions">
+          <a [routerLink]="['/cars', currentCar()?._id, 'edit']" class="btn-edit">Редактирай</a>
+          <a (click)="onDelete(currentCar()!._id)" class="btn-delete" [class.disabled]="isLoading()"
+            >Изтрий</a
+          >
+        </div>
+      }
+    </aside>
+
+    <main class="car-main-content">
+      @if (isOwner()) {
+        <div class="tabs-container">
+          <div class="tabs">
+            <button
+              (click)="activeTab.set('dashboard')"
+              [class.active]="activeTab() === 'dashboard'"
+            >
+              Табло
+            </button>
+            <button (click)="activeTab.set('fuel')" [class.active]="activeTab() === 'fuel'">
+              Гориво
+            </button>
+            <button (click)="activeTab.set('service')" [class.active]="activeTab() === 'service'">
+              Сервиз
+            </button>
+            <button
+              (click)="activeTab.set('documents')"
+              [class.active]="activeTab() === 'documents'"
+            >
+              Документи
+            </button>
+          </div>
+        </div>
+
+        <div class="tab-content">
+          @if (activeTab() === 'dashboard') {
+            <app-car-dashboard [car]="currentCar()!" />
+          }
+          @if (activeTab() === 'fuel') {
+            <app-car-fuel [car]="currentCar()!" />
+          }
+          @if (activeTab() === 'service') {
+            <app-car-service [car]="currentCar()!" />
+          }
+          @if (activeTab() === 'documents') {
+            <app-car-documents [car]="currentCar()!" />
+          }
+        </div>
+      } @else {
+        <div class="not-owner-message">
+          <p>Трябва да сте собственик, за да виждате таблото и записите.</p>
+        </div>
+      }
+    </main>
   } @else {
-    <p>Loading...</p>
+    <div class="loader">Loading car details...</div>
   }
 </div>
