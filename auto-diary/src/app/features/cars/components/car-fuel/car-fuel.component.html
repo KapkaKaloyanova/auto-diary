@@ -1,1 +1,44 @@
-<p>car-fuel works!</p>
+<div class="records-detail">
+  <a [routerLink]="['/cars', car()._id, 'add-fuel']" class="btn-primary">Ново зареждане</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Дата</th>
+        <th>Километраж</th>
+        <th>Литри</th>
+        <th>Цена/литър</th>
+        <th>Цена</th>
+        <th>Бензино-станция</th>
+        <th>Коментар</th>
+        <th>Тип на пътя</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (rec of fuelRecords(); track rec._id) {
+        <tr>
+          <td>{{ rec.date }}</td>
+          <td>{{ rec.mileage | number }} km</td>
+          <td>{{ rec.liters }} l</td>
+          <td>{{ rec.unitPrice }}</td>
+          <td>{{ rec.price }}</td>
+          <td>{{ rec.gasStation }}</td>
+          <td>{{ rec.comment }}</td>
+          <td>{{ rec.roadType }}</td>
+          <td>
+            <a [routerLink]="['/cars', car()._id, 'edit-fuel', rec._id]">Редактирай</a>
+            /
+            <a (click)="onDelete(rec._id)">Изтрии</a>
+          </td>
+        </tr>
+      } @empty {
+        <tr class="no-cars">
+          <td>Все още няма добавени записи.</td>
+          <td>
+            <a [routerLink]="['/cars', car()._id, 'add-fuel']" class="btn-primary">Добави запис</a>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
