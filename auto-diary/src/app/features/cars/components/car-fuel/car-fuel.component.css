@@ -19,12 +19,12 @@
 /* Основен стил на таблицата */
 table {
   width: 100%;
-  border-collapse: separate; /* Позволява заобляне на ъглите */
+  border-collapse: separate; 
   border-spacing: 0;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border-card);
   border-radius: 12px;
-  overflow: hidden; /* За да работят заоблените ъгли */
+  overflow: hidden; 
 }
 
 /* Заглавен ред */
@@ -50,40 +50,102 @@ td {
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
+/* ФИКС ЗА ДЕЙСТВИЯТА (Редактирай / Изтрий) */
+.actions-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.action-link {
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer !important; /* Гарантира ръчичката */
+  transition: 0.2s;
+}
+
+/* Редактирай - светло синьо за четливост */
+.action-link.edit, .action-link.edit:visited {
+  color: #ffffff !important;
+}
+
+/* Изтрий - червено */
+.action-link.delete, .action-link.delete:visited {
+  color: #f87171 !important;
+}
+
+.action-link:hover {
+  text-decoration: underline;
+  filter: brightness(1.2);
+}
+
+.small {
+  font-size: 9px;
+  font-style: italic;
+}
+
+.divider {
+  color: var(--text-secondary);
+  opacity: 0.3;
+}
+
 /* Ефект при посочване на ред */
-tbody tr:hover {
+tbody tr:hover:not(.empty-row) {
   background: rgba(255, 255, 255, 0.03);
   transition: background 0.2s;
 }
 
-/* Премахваме долната линия на последния ред */
+/* --- НОВ СТИЛ ЗА ПРАЗНО СЪСТОЯНИЕ --- */
+.empty-row td {
+  padding: 80px 0 !important;
+  text-align: center;
+  background: transparent;
+}
+
+.empty-message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.empty-message-container p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+
+.add-inline-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  border-bottom: 1px dashed var(--primary);
+  padding-bottom: 2px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.add-inline-link:hover {
+  filter: brightness(1.2);
+  border-bottom-style: solid;
+}
+
 tbody tr:last-child td {
   border-bottom: none;
 }
 
-/* Стил за празна таблица */
-.no-cars td {
-  text-align: center;
-  padding: 40px;
-  color: var(--text-secondary);
-}
-
-.no-cars .btn-primary {
-  margin-top: 10px;
-}
-
-/* Responsive: Ако колоните станат твърде много */
 @media (max-width: 1100px) {
   .records-detail {
-    overflow-x: auto; /* Позволява хоризонтално скролване само на таблицата */
+    overflow-x: auto;
   }
-  
   table {
-    min-width: 800px; /* Гарантира, че колоните няма да се смачкат */
+    min-width: 900px;
   }
 }
 
-/* Анимация */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }

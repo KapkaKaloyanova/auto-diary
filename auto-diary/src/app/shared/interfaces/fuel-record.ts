@@ -6,7 +6,7 @@ export interface FuelRecord {
     unitPrice: number;
     price: number;
     carId: string;
-    roadType: 'city' | 'highway' | 'offroad' ;
+    roadType: 'градско' | 'магистрала' | 'offroad' ;
     gasStation: string;
     comment: string;
 }

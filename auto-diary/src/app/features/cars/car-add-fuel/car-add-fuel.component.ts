@@ -22,13 +22,14 @@ export class CarAddFuelComponent implements OnInit, OnDestroy {
   unitPrice = signal<number | null>(null);
   private subscription!: Subscription;
 
+
   fuelRecordForm = new FormGroup({
     date: new FormControl<string>('', [Validators.required]),
     mileage: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
     liters: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
     unitPrice: new FormControl<number | null>(null, [Validators.min(0)]),
     price: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
-    roadType: new FormControl<FuelRecord['roadType']>('city'),
+    roadType: new FormControl<FuelRecord['roadType']>('градско'),
     gasStation: new FormControl<string>(''),
     comment: new FormControl<string>(''),
   });
@@ -91,7 +92,7 @@ export class CarAddFuelComponent implements OnInit, OnDestroy {
   }
 
   onReset() {
-    this.fuelRecordForm.reset({ roadType: 'city' });
+    this.fuelRecordForm.reset({ roadType: 'градско' });
     this.unitPrice.set(null);
   }
 

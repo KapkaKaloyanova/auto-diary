@@ -6,36 +6,44 @@
         <th>Дата</th>
         <th>Километраж</th>
         <th>Литри</th>
+        <th>Среден разход <span class="small">изчислен</span> </th>
         <th>Цена/литър</th>
         <th>Цена</th>
-        <th>Бензино-станция</th>
+        <th>Бензиностанция</th>
         <th>Коментар</th>
         <th>Тип на пътя</th>
-        <th>Действия</th>
+        <th class="actions-header">Действия</th>
       </tr>
     </thead>
     <tbody>
-      @for (rec of fuelRecords(); track rec._id) {
+      @for (rec of fuelRecords(); track rec._id; let i = $index) {
         <tr>
           <td>{{ rec.date }}</td>
           <td>{{ rec.mileage | number }} km</td>
-          <td>{{ rec.liters }} l</td>
-          <td>{{ rec.unitPrice }}</td>
-          <td>{{ rec.price }}</td>
-          <td>{{ rec.gasStation }}</td>
-          <td>{{ rec.comment }}</td>
+          <td>{{ rec.liters | number }} </td>
+          <td>{{ i===0 ? '---' : (rec.liters / (rec.mileage - fuelRecords()[i-1].mileage))*100 | number: '1.2-2'}}</td>
+          <td>{{ rec.unitPrice | number: '1.2-2' }} €/л</td>
+          <td>{{ rec.price | number: '1.2-2' }} €</td>
+          <td>{{ rec.gasStation || '---' }}</td>
+          <td class="comment-cell">{{ rec.comment || '---' }}</td>
           <td>{{ rec.roadType }}</td>
-          <td>
-            <a [routerLink]="['/cars', car()._id, 'edit-fuel', rec._id]">Редактирай</a>
-            /
-            <a (click)="onDelete(rec._id)">Изтрии</a>
+          <td class="actions-cell">
+            <div class="actions-wrapper">
+              <a class="action-link edit" [routerLink]="['/cars', car()._id, 'edit-fuel', rec._id]">Редактирай</a>
+              <span class="divider"> | </span>
+              <a (click)="onDelete(rec._id)" class="action-link delete">Изтрии</a>
+            </div>
           </td>
         </tr>
       } @empty {
-        <tr class="no-cars">
-          <td>Все още няма добавени записи.</td>
-          <td>
-            <a [routerLink]="['/cars', car()._id, 'add-fuel']" class="btn-primary">Добави запис</a>
+        <tr class="empty-row">
+          <td colspan="9">
+            <div class="empty-message-container">
+              <p>Все още няма добавени записи за гориво.</p>
+              <a [routerLink]="['/cars', car()._id, 'add-fuel']" class="add-inline-link">
+                Добавете първото зареждане оттук
+              </a>
+            </div>
           </td>
         </tr>
       }
