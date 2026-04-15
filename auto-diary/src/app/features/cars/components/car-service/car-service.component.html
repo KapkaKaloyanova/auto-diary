@@ -1,1 +1,52 @@
-<p>car-service works!</p>
+<div class="records-detail">
+  <a [routerLink]="['/cars', car()._id, 'add-service']" class="btn-primary">Нов сервизен запис</a>
+
+  <div class="services-grid">
+    @for (record of serviceRecords(); track record._id) {
+      <div class="service-card">
+        <div class="card-header">
+          <h3>{{ record.type }}</h3>
+          <span class="record-date">{{ record.date }}</span>
+        </div>
+        <div class="card-body">
+          <div class="info-item">
+            <span class="label">Километраж:</span>
+            <span class="value">{{ record.mileage | number }} км</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Цена:</span>
+            <span class="value">{{ record.price | number: '1.2-2' }} евро</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Марка:</span>
+            <span class="value">{{ record.brand }}</span>
+          </div>
+          <div class="next-service-info">
+            <p>Следващ сервиз:</p>
+            <span>{{ record.nextServiceDate || 'Не е зададено' }}</span>
+            @if (record.nextServiceMileage) {
+              <span> / {{ record.nextServiceMileage | number }} км</span>
+            }
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <a
+            class="action-link edit"
+            [routerLink]="['/cars', car()._id, 'edit-service', record._id]"
+            >Редактирай</a
+          >
+          <span class="divider"> | </span>
+          <a (click)="onDelete(record._id)" class="action-link delete">Изтрии</a>
+        </div>
+      </div>
+    } @empty {
+      <div class="empty-state-container">
+        <p>Все още няма добавени записи за сервизната история.</p>
+        <a [routerLink]="['/cars', car()._id, 'add-service']" class="add-inline-link">
+          Добавете първия сервизен запис оттук
+        </a>
+      </div>
+    }
+  </div>
+</div>
