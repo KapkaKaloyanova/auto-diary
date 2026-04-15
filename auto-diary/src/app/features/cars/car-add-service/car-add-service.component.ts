@@ -1,11 +1,83 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { ServiceRecordService } from '../../../core/services/service-record.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ServiceRecord } from '../../../shared/interfaces/service-record';
 
 @Component({
   selector: 'app-car-add-service',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './car-add-service.component.html',
   styleUrl: './car-add-service.component.css',
 })
-export class CarAddServiceComponent {
+export class CarAddServiceComponent implements OnInit {
+  private serviceRecordService = inject(ServiceRecordService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+
+  carId = this.route.snapshot.params['id'];
+  serviceId = this.route.snapshot.params['serviceId'];
+  errorMessage = '';
+
+
+  serviceRecordForm = new FormGroup({
+    type: new FormControl<string>('', [Validators.required]),
+    brand: new FormControl<string>('', [Validators.required]),
+    mileage: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
+    price: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
+    date: new FormControl<string>('', [Validators.required]),
+    nextServiceDate: new FormControl<string>(''),
+    nextServiceMileage: new FormControl<number | null>(null, [Validators.min(0)]),
+
+  });
+
+  ngOnInit(): void {
+    if (this.serviceId) {
+      this.serviceRecordService.getServiceRecordById(this.serviceId).subscribe({
+        next: (record) => {
+          this.serviceRecordForm.patchValue({
+            type: record.type,
+            brand: record.brand,
+            mileage: record.mileage,
+            price: record.price,
+            date: record.date,
+            nextServiceDate: record.nextServiceDate,
+            nextServiceMileage: record.nextServiceMileage,
+          })
+        },
+        error: (err) => {
+          this.errorMessage = err.error?.message || 'Unexpected error occured'
+        }
+      })
+    }
+
+  }
+
+  onSubmit() {
+    const serviceRecordData = { ...this.serviceRecordForm.value, carId: this.carId } as Partial<ServiceRecord>;
+
+    if (this.serviceId) {
+      this.serviceRecordService.editServiceRecord(this.serviceId, serviceRecordData).subscribe({
+        next: () => this.router.navigate(['/cars', this.carId]),
+        error: (err) => {
+          this.errorMessage = err.error?.message || 'Unexpected error occured';
+        }
+      })
+    } else {
+      this.serviceRecordService.createServiceRecord(serviceRecordData).subscribe({
+        next: () => this.router.navigate(['/cars', this.carId]),
+        error: (err) => {
+          this.errorMessage = err.error?.message || 'Unexpected error occured';
+        }
+      })
+    }
+  }
+
+  onReset() {
+    this.serviceRecordForm.reset();
+  }
+  onCancel(){
+    this.router.navigate(['/cars', this.carId]);
+  }
 
 }

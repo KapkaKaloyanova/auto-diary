@@ -1,1 +1,111 @@
-<p>car-add-service works!</p>
+<div class="auth-container">
+  <div class="auth-card">
+    @if (serviceId) {
+      <h2>Редактирай сервизния запис</h2>
+    } @else {
+      <h2>Създай сервизен запис</h2>
+    }
+
+    <form [formGroup]="serviceRecordForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input type="text" formControlName="type" placeholder="Тип на дейността" />
+        @if (
+          serviceRecordForm.get('type')?.errors?.['required'] &&
+          serviceRecordForm.get('type')?.touched
+        ) {
+          <p class="error">Типът на дейността е задължителен</p>
+        }
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <input type="text" formControlName="brand" placeholder="Марка" />
+          @if (
+            serviceRecordForm.get('brand')?.errors?.['required'] &&
+            serviceRecordForm.get('brand')?.touched
+          ) {
+            <p class="error">Марката е задължителна</p>
+          }
+        </div>
+        <div class="form-group">
+          <input type="number" formControlName="mileage" placeholder="Километраж" />
+          @if (
+            serviceRecordForm.get('mileage')?.errors?.['required'] &&
+            serviceRecordForm.get('mileage')?.touched
+          ) {
+            <p class="error">Километражът е задължителен</p>
+          }
+          @if (
+            serviceRecordForm.get('mileage')?.errors?.['min'] &&
+            serviceRecordForm.get('mileage')?.touched
+          ) {
+            <p class="error">Километражът не може да бъде по-малък от 0</p>
+          }
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <input type="number" formControlName="price" placeholder="Цена" />
+          @if (
+            serviceRecordForm.get('price')?.errors?.['required'] &&
+            serviceRecordForm.get('price')?.touched
+          ) {
+            <p class="error">Цената е задължителна</p>
+          }
+          @if (
+            serviceRecordForm.get('price')?.errors?.['min'] &&
+            serviceRecordForm.get('price')?.touched
+          ) {
+            <p class="error">Цената не може да бъде отрицателна</p>
+          }
+        </div>
+        <div class="form-group">
+          <input type="date" formControlName="date" placeholder="Дата на дейността" />
+          @if (
+            serviceRecordForm.get('date')?.errors?.['required'] &&
+            serviceRecordForm.get('date')?.touched
+          ) {
+            <p class="error">Датата е задължителна</p>
+          }
+        </div>
+      </div>
+      <label>Настройки за напомняне на следващ сервиз</label>
+      <div class="row">
+        <div class="form-group">
+          <input type="number" formControlName="nextServiceMileage" placeholder="Километри" />
+          @if (
+            serviceRecordForm.get('nextServiceMileage')?.errors?.['min'] &&
+            serviceRecordForm.get('nextServiceMileage')?.touched
+          ) {
+            <p class="error">Километрите до следващ сервиз не може да бъдат по-малки от 0</p>
+          }
+        </div>
+        <div class="form-group">
+          <input
+            type="date"
+            formControlName="nextServiceDate"
+            placeholder="Дата на следващ сервиз"
+          />
+        </div>
+      </div>
+
+      @if (errorMessage) {
+        <p class="error">{{ errorMessage }}</p>
+      }
+      <div class="form-actions">
+        @if (serviceId) {
+          <button type="submit" [disabled]="serviceRecordForm.invalid" class="btn-primary auth-btn">
+            Редактирай сервизния запис
+          </button>
+        } @else {
+          <button type="submit" [disabled]="serviceRecordForm.invalid" class="btn-primary auth-btn">
+            Запис
+          </button>
+        }
+        <div class="row">
+          <a class="reset-link" (click)="onReset()">Изчисти формата</a>
+          <a class="reset-link" (click)="onCancel()">Откажи</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
