@@ -163,11 +163,46 @@ option {
   text-decoration: none;
 }
 
-p.error {
+/* p.error {
     color: var(--color-danger);
     font-size: 0.82rem;
     font-weight: 600;
     padding: 0 !important;
     margin-top: 0.25rem;
     background: transparent !important;
+} */
+
+/* Стил за заглавния label (Настройки за напомняне) */
+form > label {
+  display: block;
+  text-align: left;
+  color: var(--text-main);
+  font-size: 15px;
+  font-weight: 600;
+  margin: 25px 0 15px 4px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Лека разделителна линия */
+  width: 100%;
+}
+
+/* Оправяме подредбата на действията (Reset и Cancel) */
+.form-actions .row {
+  width: 100%;
+  justify-content: center;
+  gap: 25px; /* Разстояние между двата линка */
+  margin-top: 5px;
+}
+
+/* Стил за грешките, за да не "подскачат" полетата */
+p.error {
+  color: #ff4d4d;
+  font-size: 12px;
+  margin-top: 4px;
+  margin-left: 4px;
+  text-align: left;
+}
+
+/* Малък фикс за input тип date (да изглежда еднакво с другите) */
+input[type="date"] {
+  font-family: inherit;
 }
