@@ -1,3 +1,21 @@
+.records-detail {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Контейнер за бутона над таблицата */
+.records-detail > .btn-primary {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: var(--primary);
+  color: white;
+  transition: all 0.2s;
+}
+
 /* Контейнер за картите */
 .services-grid {
   display: grid;
