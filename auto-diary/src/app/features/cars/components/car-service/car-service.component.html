@@ -15,7 +15,7 @@
           </div>
           <div class="info-item">
             <span class="label">Цена:</span>
-            <span class="value">{{ record.price | number: '1.2-2' }} евро</span>
+            <span class="value">{{ record.price | number: '1.2-2' }} €</span>
           </div>
           <div class="info-item">
             <span class="label">Марка:</span>
@@ -27,6 +27,7 @@
             @if (record.nextServiceMileage) {
               <span> / {{ record.nextServiceMileage | number }} км</span>
             }
+            <div class="comment"> {{ record.comment || '---' }} </div>
           </div>
         </div>
 

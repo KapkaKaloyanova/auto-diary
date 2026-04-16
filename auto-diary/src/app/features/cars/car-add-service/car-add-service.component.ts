@@ -28,6 +28,7 @@ export class CarAddServiceComponent implements OnInit {
     date: new FormControl<string>('', [Validators.required]),
     nextServiceDate: new FormControl<string>(''),
     nextServiceMileage: new FormControl<number | null>(null, [Validators.min(0)]),
+    comment: new FormControl<string>(''),
 
   });
 
@@ -43,6 +44,7 @@ export class CarAddServiceComponent implements OnInit {
             date: record.date,
             nextServiceDate: record.nextServiceDate,
             nextServiceMileage: record.nextServiceMileage,
+            comment: record.comment,
           })
         },
         error: (err) => {
@@ -62,6 +64,7 @@ export class CarAddServiceComponent implements OnInit {
     // Премахване на празните незадължителни полета
     if (!serviceRecordData.nextServiceDate) delete serviceRecordData.nextServiceDate;
     if (!serviceRecordData.nextServiceMileage) delete serviceRecordData.nextServiceMileage;
+    if (!serviceRecordData.comment) delete serviceRecordData.comment;
 
     if (this.serviceId) {
       this.serviceRecordService.editServiceRecord(this.serviceId, serviceRecordData).subscribe({

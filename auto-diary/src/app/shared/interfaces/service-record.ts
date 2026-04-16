@@ -8,4 +8,5 @@ export interface ServiceRecord {
     date: string;
     nextServiceDate?: string;
     nextServiceMileage?: number;
+    comment?: string;
 }
