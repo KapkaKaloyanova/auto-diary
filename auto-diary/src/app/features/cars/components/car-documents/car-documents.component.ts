@@ -27,11 +27,11 @@ export class CarDocumentsComponent implements OnInit {
     })
   }
 
-  onDelete(documentRecorddId: string){
+  onDelete(documentRecordId: string){
     if(confirm('Сигурни ли сте, че искате да изтриете този документ?')) {
-      this.documentRecordService.deleteDocumentRecord(documentRecorddId).subscribe({
+      this.documentRecordService.deleteDocumentRecord(documentRecordId).subscribe({
         next: () => {
-          this.documentRecords.update(rec => rec.filter(r => r._id !== documentRecorddId));
+          this.documentRecords.update(rec => rec.filter(r => r._id !== documentRecordId));
         },
         error: (err) => console.error('Грешка при изтриване на запис:', err)
       })

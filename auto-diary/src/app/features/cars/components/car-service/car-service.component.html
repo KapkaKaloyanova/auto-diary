@@ -27,7 +27,9 @@
             @if (record.nextServiceMileage) {
               <span> / {{ record.nextServiceMileage | number }} км</span>
             }
-            <div class="comment"> {{ record.comment || '---' }} </div>
+            @if (record.comment) {
+              <div class="comment">{{ record.comment || '---' }}</div>
+            }
           </div>
         </div>
 

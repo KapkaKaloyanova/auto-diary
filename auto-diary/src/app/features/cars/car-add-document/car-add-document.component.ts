@@ -36,6 +36,7 @@ export class CarAddDocumentComponent implements OnInit {
           next: (record) => {
             this.documentRecordForm.patchValue({
               type: record.type,
+              title: record.title,
               date: record.date,
               price: record.price,
               brand: record.brand,

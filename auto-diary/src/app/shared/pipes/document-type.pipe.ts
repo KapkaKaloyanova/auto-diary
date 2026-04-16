@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from "@angular/core";
 import { DocumentRecord } from "../interfaces/document-record";
 
-@Pipe({name: 'documentType'})
+@Pipe({name: 'documentType', standalone: true})
 export class DocumentTypePipe implements PipeTransform{
 
     transform(documentType: DocumentRecord['type']): string {
