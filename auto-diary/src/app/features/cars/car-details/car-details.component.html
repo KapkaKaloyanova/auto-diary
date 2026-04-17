@@ -10,16 +10,16 @@
 
         <div class="info-grid">
           <div class="info-row">
-            <span>Година:</span> <strong>{{ currentCar()?.year }}</strong>
+            <span>Гориво:</span> <strong>{{ currentCar()?.fuelType }}</strong>
           </div>
           <div class="info-row">
             <span>Двигател:</span> <strong>{{ currentCar()?.engineType }}</strong>
           </div>
           <div class="info-row">
-            <span>Пробег:</span> <strong>{{ currentCar()?.initialMileage | number }} км</strong>
+            <span>Произведена:</span> <strong>{{ currentCar()?.year }} г.</strong>
           </div>
           <div class="info-row">
-            <span>Гориво:</span> <strong>{{ currentCar()?.fuelType }}</strong>
+            <span>Начален пробег:</span> <strong>{{ currentCar()?.initialMileage | number }} км</strong>
           </div>
         </div>
       </div>

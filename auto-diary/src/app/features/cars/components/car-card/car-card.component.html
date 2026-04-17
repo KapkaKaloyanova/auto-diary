@@ -1,15 +1,27 @@
 <div class="car-card">
-  <div class="car-image">
-    <img [src]="car().imageUrl || '/images/car-placeholder.png'" alt="Car image" />
-  </div>
-  <div class="car-info">
-    <h3>{{ car().brand }} {{ car().model }}</h3>
-    <p>Година на производство: {{ car().year }}</p>
-    <p>Двигател: {{ car().engineType }}</p>
-    <p>Начален пробег: {{ car().initialMileage }} км</p>
-    <p>Тип на гориво: {{ car().fuelType }}</p>
+      <div class="car-image">
+        <img [src]="car()?.imageUrl || '/images/car-placeholder.png'" alt="Car image" />
+      </div>
+
+      <div class="car-info-card">
+        <h3>{{ car()?.brand | titlecase }} {{ car()?.model | titlecase }}</h3>
+
+        <div class="info-grid">
+          <div class="info-row">
+            <span>Гориво:</span> <strong>{{ car()?.fuelType }}</strong>
+          </div>
+          <div class="info-row">
+            <span>Двигател:</span> <strong>{{ car()?.engineType }}</strong>
+          </div>
+          <div class="info-row">
+            <span>Произведена:</span> <strong>{{ car()?.year }} г.</strong>
+          </div>
+          <div class="info-row">
+            <span>Начален пробег:</span> <strong>{{ car()?.initialMileage | number }} км</strong>
+          </div>
+        </div>
+      </div>
     <div class="car-actions">
       <a [routerLink]="['/cars', car()._id]" class="btn-primary">Детайли</a>
     </div>
   </div>
-</div>
