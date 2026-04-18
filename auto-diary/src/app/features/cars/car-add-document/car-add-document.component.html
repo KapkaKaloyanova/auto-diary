@@ -1,5 +1,11 @@
 <div class="auth-container">
   <div class="auth-card">
+    <div class="car-badge">
+      <div class="badge-wrapper">
+        <img src="/images/car-placeholder.png" alt="car" class="badge-icon" />
+      </div>
+      <span>{{ currentCar()?.brand }} {{ currentCar()?.model }} </span>
+    </div>
     @if (documentId) {
       <h2>Редактирай документ</h2>
     } @else {

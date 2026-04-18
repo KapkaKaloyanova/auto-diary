@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 70px); 
+  min-height: calc(100vh - 70px);
   padding: 40px 20px;
 }
 
@@ -42,7 +42,8 @@
 }
 
 /* Общ стил за Input и Select */
-input, select {
+input,
+select {
   width: 100%;
   padding: 12px 16px;
   background: rgba(255, 255, 255, 0.05);
@@ -54,7 +55,8 @@ input, select {
   transition: all 0.2s ease;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
   border-color: var(--primary);
   background: rgba(255, 255, 255, 0.08);
 }
@@ -99,7 +101,9 @@ option {
   font-weight: 600;
   cursor: pointer;
   width: 100%;
-  transition: transform 0.1s, background-color 0.2s;
+  transition:
+    transform 0.1s,
+    background-color 0.2s;
 }
 
 .auth-btn:hover:not(:disabled) {
@@ -119,7 +123,7 @@ option {
 
 .reset-link {
   display: inline-block; /* Позволява добавянето на margin и padding */
-  margin-top: 15px;      /* Разстояние от горния бутон */
+  margin-top: 15px; /* Разстояние от горния бутон */
   font-size: 14px;
   color: var(--text-secondary);
   text-decoration: none; /* Премахва долната черта по подразбиране */
@@ -203,6 +207,42 @@ p.error {
 }
 
 /* Малък фикс за input тип date (да изглежда еднакво с другите) */
-input[type="date"] {
+input[type='date'] {
   font-family: inherit;
+}
+
+
+
+/* Контейнерът за иконата и името на колата */
+.car-badge {
+  display: flex;
+  flex-direction: column; /* Иконата pred teksta */
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  color: var(--text-secondary);
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.badge-wrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  background: white;
+  overflow: hidden; /* ТОВА изрязва колата, когато тя стане голяма */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px; /* центрира го в картата */
+}
+
+/* Това е самата кола */
+.badge-icon {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* Вече няма да имаш грешка: */
+  transform: scale(1.6); 
 }

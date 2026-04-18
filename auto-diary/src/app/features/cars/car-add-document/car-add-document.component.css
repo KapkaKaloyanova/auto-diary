@@ -206,3 +206,38 @@ p.error {
 input[type="date"] {
   font-family: inherit;
 }
+
+
+
+/* Контейнерът за иконата и името на колата */
+.car-badge {
+  display: flex;
+  flex-direction: column; /* Иконата pred teksta */
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  color: var(--text-secondary);
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.badge-wrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  background: white;
+  overflow: hidden; /* ТОВА изрязва колата, когато тя стане голяма */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px; /* центрира го в картата */
+}
+
+/* Това е самата кола */
+.badge-icon {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform: scale(1.6); 
+}

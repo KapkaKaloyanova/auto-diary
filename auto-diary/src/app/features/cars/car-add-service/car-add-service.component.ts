@@ -1,10 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ServiceRecordService } from '../../../core/services/service-record.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ServiceRecord } from '../../../shared/interfaces/service-record';
 import { CarService } from '../../../core/services/car.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { Car } from '../../../shared/interfaces/car';
 
 @Component({
   selector: 'app-car-add-service',
@@ -22,6 +23,7 @@ export class CarAddServiceComponent implements OnInit {
   carId = this.route.snapshot.params['id'];
   serviceId = this.route.snapshot.params['serviceId'];
   errorMessage = '';
+  currentCar = signal<Car | null>(null)
 
 
   serviceRecordForm = new FormGroup({
@@ -41,7 +43,9 @@ export class CarAddServiceComponent implements OnInit {
       next: (car) => {
         if(car._ownerId !== this.authService.currentUser()?._id){
           this.router.navigate(['/cars', this.carId]);
+          return;
         }
+        this.currentCar.set(car);
       }
     });
     

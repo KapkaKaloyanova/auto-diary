@@ -1,10 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { DocumentRecordService } from '../../../core/services/document-record.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DocumentRecord } from '../../../shared/interfaces/document-record';
 import { CarService } from '../../../core/services/car.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { Car } from '../../../shared/interfaces/car';
 
 @Component({
   selector: 'app-car-add-document',
@@ -22,6 +23,7 @@ export class CarAddDocumentComponent implements OnInit {
   carId = this.route.snapshot.params['id'];
   documentId = this.route.snapshot.params['documentId'];
   errorMessage = '';
+  currentCar = signal<Car | null>(null);
 
   documentRecordForm = new FormGroup({
     type: new FormControl<string>('', [Validators.required]),
@@ -38,7 +40,9 @@ export class CarAddDocumentComponent implements OnInit {
       next: (car) => {
         if (car._ownerId !== this.authService.currentUser()?._id) {
           this.router.navigate(['/cars', this.carId]);
+          return;
         }
+        this.currentCar.set(car);
       }
     });
 

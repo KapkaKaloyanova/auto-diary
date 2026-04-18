@@ -7,6 +7,7 @@ import { DecimalPipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { CarService } from '../../../core/services/car.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { Car } from '../../../shared/interfaces/car';
 
 @Component({
   selector: 'app-car-add-fuel',
@@ -26,6 +27,7 @@ export class CarAddFuelComponent implements OnInit, OnDestroy {
   unitPrice = signal<number | null>(null);
   totalPrice = signal<number | null>(null);
   private subscription!: Subscription;
+  currentCar = signal<Car | null>(null)
 
 
 
@@ -45,7 +47,9 @@ export class CarAddFuelComponent implements OnInit, OnDestroy {
       next: (car) => {
         if (car._ownerId !== this.authService.currentUser()?._id) {
           this.router.navigate(['/cars', this.carId]);
+          return;
         }
+        this.currentCar.set(car);
       }
     });
 
