@@ -65,8 +65,9 @@ export class CarDashboardComponent implements OnInit {
     );
   }
 
-dismissAlert(index: number) {
-  this.alerts.update(alerts => alerts.filter((_, i) => i !== index));
+dismissAlert(message: string) {
+this.alertService.dismissAlert(message);
+  this.alerts.update(alerts => alerts.filter(a =>a.message !== message));
   };
 
 }

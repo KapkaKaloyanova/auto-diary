@@ -8,7 +8,7 @@
         @for (alert of alerts(); track $index) {
           <div class="alert-item">
             <span class="alert-text">{{ alert.message }}</span>
-            <button class="dismiss-btn" (click)="dismissAlert($index)">✕</button>
+            <button class="dismiss-btn" (click)="dismissAlert(alert.message)">✕</button>
           </div>
         } @empty {
           <div class="record-item empty-state">Няма скорошни известия</div>

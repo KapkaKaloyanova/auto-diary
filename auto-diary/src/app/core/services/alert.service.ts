@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { ServiceRecordService } from './service-record.service';
 import { forkJoin, map, Observable, of } from 'rxjs';
 import { DocumentRecordService } from './document-record.service';
@@ -11,6 +11,11 @@ import { Alert } from '../../shared/interfaces/alert';
 export class AlertService {
   private serviceRecordService = inject(ServiceRecordService);
   private documentRecordService = inject(DocumentRecordService);
+  
+  dismissedAlerts = signal<string[]>([]);
+  dismissAlert(index: string) {
+    this.dismissedAlerts.update(dismissed => [...dismissed, index]);
+  }
 
   getAlertsForCar(carId: string): Observable<Alert[]> {
 
@@ -47,7 +52,8 @@ export class AlertService {
           }
         });
 
-        return result;
+        return result.filter(alert =>
+          !this.dismissedAlerts().includes(alert.message));
       })
     )
 
