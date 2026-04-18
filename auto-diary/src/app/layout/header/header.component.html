@@ -29,7 +29,7 @@
         >
         <!-- alert Bell -->
         <div class="nav-icons">
-          <div class="dropdown">
+          <div class="dropdown" (mouseleave)="isAlertsOpen.set(false)">
             <div class="bell-wrapper">
               <span class="notification-bell" (click)="alertToggleDropdown()">🔔</span>
               @if (alerts().length >= 0) {
@@ -39,7 +39,11 @@
             @if (isAlertsOpen()) {
               <div class="dropdown-menu alerts-dropdown">
                 @for (alert of alerts(); track $index) {
-                  <a class="dropdown-alert-item" [routerLink]="['/cars', alert.carId]" (click)="navigateToAlert(alert.carId)">
+                  <a
+                    class="dropdown-alert-item"
+                    [routerLink]="['/cars', alert.carId]"
+                    (click)="navigateToAlert(alert.carId)"
+                  >
                     {{ alert.message }}
                   </a>
                 }
