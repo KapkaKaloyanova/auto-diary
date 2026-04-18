@@ -57,8 +57,10 @@ export class CarDashboardComponent implements OnInit {
         }
       })
 
-    this.alertService.getAlertsForCar(this.car()._id).subscribe(
-      alerts => this.alerts.set(alerts)
+    this.alertService.getAlertsForCar(this.car()._id).subscribe({
+      next: alerts => this.alerts.set(alerts),
+      error: (err) => console.error('Грешка при получаване на известията:', err)
+    }
     );
   }
 
