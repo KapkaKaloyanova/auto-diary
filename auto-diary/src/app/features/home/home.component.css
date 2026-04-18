@@ -1,0 +1,93 @@
+/* Контейнер за картите */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  padding: 20px;
+}
+
+/* Картата - изчистена */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 16px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column; 
+  position: relative;
+  min-height: 160px;
+  overflow: visible !important;
+  z-index: 1;
+}
+
+.card.active {
+  z-index: 10;
+}
+
+.card:hover {
+  border-color: var(--primary);
+}
+
+/* Малки и фини икони */
+.card-icon svg {
+  width: 20px; /* Намаляваме размера */
+  height: 28px;
+  stroke: var(--primary);
+  fill: none;
+  stroke-width: 1.5; /* По-тънка и елегантна линия */
+  stroke-linecap: round; /* По-кръгли краи */
+}
+
+.card h3 {
+  margin: 0 0 6px 0;
+  font-size: 1.15rem;
+  color: var(--text-main);
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Списъкът с коли - падащо то меню */
+.shortcut-dropdown {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  z-index: 100;
+  
+  background: #101525d8;
+  border: 0.5px solid var(--border-card);
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Сянка, за да изпъкне */
+}
+
+/* Изчистени линкове (без синьо и подчертаване) */
+.shortcut-item {
+  display: block;
+  padding: 10px 15px;
+  color: var(--text-main); /* Цвят като на основния текст */
+  text-decoration: none; /* Премахва подчертаването */
+  font-size: 0.95rem;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.shortcut-item:hover {
+  background: var(--primary-low-op); /* Много лек фон при посочване */
+  color: var(--primary); /* Сменя цвета само при посочване */
+  padding-left: 20px;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
