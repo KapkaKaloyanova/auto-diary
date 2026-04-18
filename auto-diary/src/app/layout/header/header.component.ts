@@ -33,9 +33,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   toggleDropdown() {
     this.isDropdownOpen.update(val => !val);
+    if(this.isDropdownOpen()) {
+      this.isAlertsOpen.set(false);
+    }
   }
   alertToggleDropdown() {
     this.isAlertsOpen.update(val => !val);
+    if (this.isAlertsOpen()) {
+      this.isDropdownOpen.set(false);
+    }
   }
 
   closeDropdown() {
