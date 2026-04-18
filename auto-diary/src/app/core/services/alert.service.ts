@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { ServiceRecordService } from './service-record.service';
-import { forkJoin, map, Observable } from 'rxjs';
+import { forkJoin, map, Observable, of } from 'rxjs';
 import { DocumentRecordService } from './document-record.service';
+import { Car } from '../../shared/interfaces/car';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +30,7 @@ export class AlertService {
             if (expiry < today) {
               result.push(`⚠️ Документ "${doc.title}" е с изтекъл срок!`);
             } else if (expiry <= soon) {
-              result.push(`🔔 Документ "${doc.title}" изтича на ${doc.expiryDate }!`);
+              result.push(`🔔 Документ "${doc.title}" изтича на ${doc.expiryDate}!`);
             }
           }
         });
@@ -51,7 +52,12 @@ export class AlertService {
 
   }
 
+  getAlertsForAllCars(cars: Car[]): Observable<string[]> {
+    if (cars.length === 0) return of([]);
 
-
-
+    return forkJoin(cars.map(car => this.getAlertsForCar(car._id)))
+      .pipe(map(allAlerts => allAlerts.flat()));
+  }
 }
+
+
