@@ -32,6 +32,15 @@ const kapkaCar = {
   engineType: '3.1 TDI', initialMileage: 150000, fuelType: 'diesel', imageUrl: ''
 };
 
+const kapkaFuelRecords = [
+  { date: '2026-01-10', mileage: 150500, liters: 60, unitPrice: 1.85, price: 111, roadType: 'градско', gasStation: 'Shell', comment: 'Градско шофиране' },
+  { date: '2026-01-28', mileage: 151200, liters: 55, unitPrice: 1.87, price: 102.85, roadType: 'магистрала', gasStation: 'Lukoil', comment: 'Пътуване до Варна' },
+  { date: '2026-02-15', mileage: 151900, liters: 58, unitPrice: 1.89, price: 109.62, roadType: 'градско', gasStation: 'OMV', comment: '' },
+  { date: '2026-03-05', mileage: 152800, liters: 62, unitPrice: 1.86, price: 115.32, roadType: 'магистрала', gasStation: 'Shell', comment: 'Пътуване до Пловдив' },
+  { date: '2026-03-22', mileage: 153500, liters: 57, unitPrice: 1.91, price: 108.87, roadType: 'градско', gasStation: 'Lukoil', comment: 'Редовно зареждане' },
+  { date: '2026-04-10', mileage: 154300, liters: 61, unitPrice: 1.88, price: 114.68, roadType: 'градско', gasStation: 'OMV', comment: '' },
+];
+
 async function login(credentials) {
   const res = await fetch(`${BASE_URL}/users/login`, {
     method: 'POST',
@@ -98,7 +107,7 @@ async function seed() {
       await seedRecordsForCar(created._id, adminData.accessToken, `${created.brand} ${created.model}`);
     }
 
-    console.log('\n👤 Регистриране на Kapka...');
+    console.log('\n👤 Регистриране/логване на Kapka...');
     let kapkaToken;
     try {
       const kapkaData = await register(kapkaRegisterData);
@@ -114,6 +123,22 @@ async function seed() {
     const kapkaCarCreated = await post('/data/cars', kapkaCar, kapkaToken);
     console.log(`\n🚗 ${kapkaCarCreated.brand} ${kapkaCarCreated.model}`);
     await seedRecordsForCar(kapkaCarCreated._id, kapkaToken, `${kapkaCarCreated.brand} ${kapkaCarCreated.model}`);
+
+    console.log('\n⛽ Допълнителни горивни записи за графиката...');
+    for (const record of kapkaFuelRecords) {
+      await post('/data/fuel', { ...record, carId: kapkaCarCreated._id }, kapkaToken);
+      console.log(`  ✓ ${record.date} - ${record.mileage} км`);
+    }
+
+    await post('/data/service-records', {
+      carId: kapkaCarCreated._id,
+      type: 'Смяна на филтри', brand: 'Mann Filter',
+      mileage: 152000, price: 85, date: '2026-02-01',
+      nextServiceDate: '2026-04-01',
+      nextServiceMileage: 155000,
+      comment: 'Въздушен и горивен филтър'
+    }, kapkaToken);
+    console.log('  ✓ Сервизен запис с изтекла дата (за alerts)');
 
     console.log('\n✅ Seed завършен успешно!');
   } catch (err) {

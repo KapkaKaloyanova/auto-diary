@@ -1,3 +1,11 @@
+/* контейнер - графика и алертс */
+.top-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
 /* Основен контейнер - подрежда всичко в решетка */
 .dashboard-sections {
   display: flex;

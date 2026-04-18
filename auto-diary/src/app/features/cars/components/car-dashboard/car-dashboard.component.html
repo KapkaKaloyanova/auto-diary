@@ -1,4 +1,14 @@
 <div class="dashboard-sections">
+<div class="top-row">
+  <!-- Среден разход графика -->
+  <div class="section chart-section">
+    <div class="section-header">
+      <h3 class="double-line">Среден разход</h3>
+    </div>
+    <canvas #fuelChart></canvas>
+  </div>
+
+  <!-- Известия -->
   @if (alerts().length >= 0) {
     <div class="section alert-section">
       <div class="section-header">
