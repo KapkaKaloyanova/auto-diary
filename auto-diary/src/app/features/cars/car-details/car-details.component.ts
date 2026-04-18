@@ -40,7 +40,11 @@ export class CarDetailsComponent implements OnInit {
           });
       }
     });
-
+    this.activatedRoute.queryParams.subscribe(params =>{
+      if(params['tab']){
+        this.activeTab.set(params['tab'] as 'dashboard' | 'fuel' | 'service' | 'documents');
+      }
+    });
   }
 
   onDelete(carId: string) {
@@ -59,5 +63,10 @@ export class CarDetailsComponent implements OnInit {
         });
       }
     }
+  }
+
+  setTab(tab: 'dashboard' | 'fuel' | 'service' | 'documents') {
+    this.activeTab.set(tab);
+    this.router.navigate([], { queryParams: {} });
   }
 }

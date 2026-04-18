@@ -28,22 +28,23 @@
           >{{ username() }}'s профил</a
         >
         <!-- alert Bell -->
-        <div class="nav-icons" >
-          <div class="dropdown" >
+        <div class="nav-icons">
+          <div class="dropdown">
             <div class="bell-wrapper">
               <span class="notification-bell" (click)="alertToggleDropdown()">🔔</span>
               @if (alerts().length >= 0) {
                 <span class="notification-count">{{ alerts().length }}</span>
               }
-              @if(isAlertsOpen()){
-                <div class="dropdown-menu alerts-dropdown">
-                  @for (alert of alerts(); track $index) {
-                    <div class="dropdown-alert-item">{{alert}}</div>
-                  }
-                </div>
-              }
             </div>
-
+            @if (isAlertsOpen()) {
+              <div class="dropdown-menu alerts-dropdown">
+                @for (alert of alerts(); track $index) {
+                  <a class="dropdown-alert-item" [routerLink]="['/cars', alert.carId]" (click)="navigateToAlert(alert.carId)">
+                    {{ alert.message }}
+                  </a>
+                }
+              </div>
+            }
           </div>
         </div>
 

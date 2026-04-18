@@ -5,6 +5,8 @@ import { CarService } from '../../core/services/car.service';
 import { Car } from '../../shared/interfaces/car';
 import { Subscription } from 'rxjs';
 import { AlertService } from '../../core/services/alert.service';
+import { Alert } from '../../shared/interfaces/alert';
+import { CarDashboardComponent } from '../../features/cars/components/car-dashboard/car-dashboard.component';
 @Component({
   selector: 'app-header',
   imports: [RouterLink, RouterLinkActive],
@@ -19,7 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   isLoggedIn = this.authService.isLoggedIn;
   username = computed(() => this.authService.currentUser()?.username ?? '');
-  alerts = signal<string[]>([]);
+  alerts = signal<Alert[]>([]);
 
   isDropdownOpen = signal(false);
   isAlertsOpen = signal(false);
@@ -79,4 +81,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   };
 
+  navigateToAlert(carId: string) {
+  console.log('navigating to:', carId);
+  this.alertCloseDropdown();
+  this.router.navigate(['/cars', carId], { queryParams: { tab: 'dashboard' } });
+}
 }

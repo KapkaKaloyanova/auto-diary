@@ -19,7 +19,8 @@
             <span>Произведена:</span> <strong>{{ currentCar()?.year }} г.</strong>
           </div>
           <div class="info-row">
-            <span>Начален пробег:</span> <strong>{{ currentCar()?.initialMileage | number }} км</strong>
+            <span>Начален пробег:</span>
+            <strong>{{ currentCar()?.initialMileage | number }} км</strong>
           </div>
         </div>
       </div>
@@ -37,22 +38,14 @@
       @if (isOwner()) {
         <div class="tabs-container">
           <div class="tabs">
-            <button
-              (click)="activeTab.set('dashboard')"
-              [class.active]="activeTab() === 'dashboard'"
-            >
+            <button (click)="setTab('dashboard')" [class.active]="activeTab() === 'dashboard'">
               Табло
             </button>
-            <button (click)="activeTab.set('fuel')" [class.active]="activeTab() === 'fuel'">
-              Гориво
-            </button>
-            <button (click)="activeTab.set('service')" [class.active]="activeTab() === 'service'">
+            <button (click)="setTab('fuel')" [class.active]="activeTab() === 'fuel'">Гориво</button>
+            <button (click)="setTab('service')" [class.active]="activeTab() === 'service'">
               Сервиз
             </button>
-            <button
-              (click)="activeTab.set('documents')"
-              [class.active]="activeTab() === 'documents'"
-            >
+            <button (click)="setTab('documents')" [class.active]="activeTab() === 'documents'">
               Документи
             </button>
           </div>

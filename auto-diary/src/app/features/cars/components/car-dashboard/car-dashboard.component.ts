@@ -9,6 +9,7 @@ import { DocumentRecord } from '../../../../shared/interfaces/document-record';
 import { AlertService } from '../../../../core/services/alert.service';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { Alert } from '../../../../shared/interfaces/alert';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class CarDashboardComponent implements OnInit {
   documentRecords = signal<DocumentRecord[]>([]);
   recentDocumentRecords = computed(() => this.documentRecords().slice(-3));
 
-  alerts = signal<string[]>([]);
+  alerts = signal<Alert[]>([]);
 
   ngOnInit() {
     this.fuelService.getFuelRecordsById(this.car()._id)

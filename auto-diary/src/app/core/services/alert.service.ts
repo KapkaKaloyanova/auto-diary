@@ -3,6 +3,7 @@ import { ServiceRecordService } from './service-record.service';
 import { forkJoin, map, Observable, of } from 'rxjs';
 import { DocumentRecordService } from './document-record.service';
 import { Car } from '../../shared/interfaces/car';
+import { Alert } from '../../shared/interfaces/alert';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class AlertService {
   private serviceRecordService = inject(ServiceRecordService);
   private documentRecordService = inject(DocumentRecordService);
 
-  getAlertsForCar(carId: string): Observable<string[]> {
+  getAlertsForCar(carId: string): Observable<Alert[]> {
 
     return forkJoin([
       this.serviceRecordService.getServiceRecordsById(carId),
@@ -21,16 +22,16 @@ export class AlertService {
         const today = new Date();
         const soon = new Date();
         soon.setDate(today.getDate() + 14); // Add 14 days to the current date
-        const result: string[] = [];
+        const result: Alert[] = [];
 
         //Проверка на документи
         docRecs.forEach(doc => {
           if (doc.expiryDate) {
             const expiry = new Date(doc.expiryDate);
             if (expiry < today) {
-              result.push(`⚠️ Документ "${doc.title}" е с изтекъл срок!`);
+              result.push({message: `⚠️ Документ "${doc.title}" е с изтекъл срок!`, carId: carId});
             } else if (expiry <= soon) {
-              result.push(`🔔 Документ "${doc.title}" изтича на ${doc.expiryDate}!`);
+              result.push({message: `🔔 Документ "${doc.title}" изтича на ${doc.expiryDate}!`, carId: carId});
             }
           }
         });
@@ -39,9 +40,9 @@ export class AlertService {
           if (rec.nextServiceDate) {
             const nextService = new Date(rec.nextServiceDate);
             if (nextService < today) {
-              result.push(`⚠️ Сервиз "${rec.type}" е изтекъл!`);
+              result.push({ message: `⚠️ Сервиз "${rec.type}" е с изтекъл срок!`, carId: carId });
             } else if (nextService <= soon) {
-              result.push(`🔔 Сервиз "${rec.type}" изтича на ${rec.nextServiceDate}!`);
+              result.push({message:`🔔 Сервиз "${rec.type}" изтича на ${rec.nextServiceDate}!`, carId: carId});
             }
           }
         });
@@ -52,7 +53,7 @@ export class AlertService {
 
   }
 
-  getAlertsForAllCars(cars: Car[]): Observable<string[]> {
+  getAlertsForAllCars(cars: Car[]): Observable<Alert[]> {
     if (cars.length === 0) return of([]);
 
     return forkJoin(cars.map(car => this.getAlertsForCar(car._id)))
