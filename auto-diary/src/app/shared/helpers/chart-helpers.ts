@@ -17,7 +17,7 @@ export function createFuelChart(
         const km = records[i].mileage - records[i - 1].mileage;
         if (km > 0) {
             const consumption = (records[i].liters / km) * 100;
-            labels.push(records[i].date);
+            labels.push(new Date (records[i].date).toLocaleDateString('bg-BG', { day: 'numeric', month: 'long' }));
             data.push(Math.round(consumption * 10) / 10);
         }
     }
@@ -36,7 +36,7 @@ export function createFuelChart(
                 pointRadius: 5,
                 pointHoverRadius: 7,
                 datalabels: {
-                    color: '#94a3b8',
+                    color: '#3b82f6',
                     anchor: 'end',
                     align: 'end',
                     formatter: (value, context) => {
@@ -54,7 +54,7 @@ export function createFuelChart(
                     beginAtZero: false,
                     min: 6,
                     grid: { color: 'rgba(255,255,255,0.05)' },
-                    ticks: { color: '#94a3b8' }
+                    ticks: { color: '#94a3b8', precision: 0 }
                 },
                 x: {
                     grid: { color: 'rgba(255,255,255,0.05)' },
