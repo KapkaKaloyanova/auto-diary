@@ -1,9 +1,9 @@
 /* контейнер - графика и алертс */
 .top-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.8fr 1fr;
   gap: 25px;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 }
 
 /* Основен контейнер - подрежда всичко в решетка */
@@ -17,6 +17,7 @@
 /* Известията (Alerts) - заемат целия горен ред */
 .alert-section {
   width: 100%; /* Заема целия ред */
+  height: 100%;
   background: var(--bg-card);
   border: 1px solid var(--border-card);
   border-left: 5px solid #ffcc00 !important;
@@ -29,7 +30,7 @@
 /* Общ стил за grid-container, който да държи трите карти на един ред */
 .grid-container {
   display: grid;
-  grid-template-columns: 0.5fr 1fr 1.5fr;
+  grid-template-columns: 1fr 0.7fr 1fr;
   gap: 25px;
 }
 
@@ -127,8 +128,6 @@
   color: var(--primary);
 }
 
-
-
 /* Стил за алертите */
 .alert-item {
   display: flex;
@@ -161,7 +160,6 @@
   color: #fff;
   opacity: 1;
 }
-
 
 .record-content {
   display: flex;
@@ -217,7 +215,7 @@
   font-weight: bold;
   font-size: 1.1rem;
   /* Фиксираме ширина и за цената */
-  width: 65px;
+  width: 75px;
   text-align: right;
   flex-shrink: 0;
 }
@@ -231,6 +229,20 @@
   text-align: right;
   flex-shrink: 0;
   padding-right: 10px;
+}
+
+/* Контейнерът контролира размера */
+.chart-container {
+  position: relative;
+  height: 200px; /* Тук променяш височината, за да е по-малка */
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Махаме стария фикс, който пречеше */
+.chart-section canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 /* Мобилен изглед - една колона на малък екран */

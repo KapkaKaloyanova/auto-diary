@@ -1,31 +1,34 @@
 <div class="dashboard-sections">
-<div class="top-row">
-  <!-- Среден разход графика -->
-  <div class="section chart-section">
-    <div class="section-header">
-      <h3 class="double-line">Среден разход</h3>
-    </div>
-    <canvas #fuelChart></canvas>
-  </div>
-
-  <!-- Известия -->
-  @if (alerts().length >= 0) {
-    <div class="section alert-section">
+  <div class="top-row">
+    <!-- Среден разход графика -->
+    <div class="section chart-section">
       <div class="section-header">
-        <h3 class="double-line">⚠️ Известия</h3>
+        <h3 class="double-line">Среден разход</h3>
       </div>
-      <div class="alert-list">
-        @for (alert of alerts(); track $index) {
-          <div class="alert-item">
-            <span class="alert-text">{{ alert.message }}</span>
-            <button class="dismiss-btn" (click)="dismissAlert(alert.message)">✕</button>
-          </div>
-        } @empty {
-          <div class="record-item empty-state">Няма скорошни известия</div>
-        }
+      <div class="chart-container">
+        <canvas #fuelChart></canvas>
       </div>
     </div>
-  }
+
+    <!-- Известия -->
+    @if (alerts().length >= 0) {
+      <div class="section alert-section">
+        <div class="section-header">
+          <h3 class="double-line">⚠️ Известия</h3>
+        </div>
+        <div class="alert-list">
+          @for (alert of alerts(); track $index) {
+            <div class="alert-item">
+              <span class="alert-text">{{ alert.message }}</span>
+              <button class="dismiss-btn" (click)="dismissAlert(alert.message)">✕</button>
+            </div>
+          } @empty {
+            <div class="record-item empty-state">Няма скорошни известия</div>
+          }
+        </div>
+      </div>
+    }
+  </div>
 
   <div class="grid-container">
     <div class="section">

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, computed, ElementRef, inject, input, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, OnInit, signal, ViewChild } from '@angular/core';
 import { Car } from '../../../../shared/interfaces/car';
 import { FuelService } from '../../../../core/services/fuel.service';
 import { ServiceRecordService } from '../../../../core/services/service-record.service';
@@ -11,7 +11,10 @@ import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { Alert } from '../../../../shared/interfaces/alert';
 import { Chart } from 'chart.js/auto';
+import { createFuelChart } from '../../../../shared/helpers/chart-helpers';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
+Chart.register(ChartDataLabels);
 
 @Component({
   selector: 'app-car-dashboard',
@@ -19,7 +22,7 @@ import { Chart } from 'chart.js/auto';
   templateUrl: './car-dashboard.component.html',
   styleUrl: './car-dashboard.component.css',
 })
-export class CarDashboardComponent implements OnInit, AfterViewInit {
+export class CarDashboardComponent implements OnInit {
   @ViewChild('fuelChart') chartCanvas!: ElementRef<HTMLCanvasElement>;
 
 
@@ -27,6 +30,7 @@ export class CarDashboardComponent implements OnInit, AfterViewInit {
   private serviceRecordService = inject(ServiceRecordService);
   private documentRecordService = inject(DocumentRecordService);
   private alertService = inject(AlertService);
+  private chart: Chart | null = null;
 
   car = input.required<Car>();
 
@@ -42,7 +46,6 @@ export class CarDashboardComponent implements OnInit, AfterViewInit {
   );
 
   alerts = signal<Alert[]>([]);
-
   ngOnInit() {
     this.fuelService.getFuelRecordsById(this.car()._id)
       .subscribe({
@@ -81,48 +84,11 @@ export class CarDashboardComponent implements OnInit, AfterViewInit {
     this.alerts.update(alerts => alerts.filter(a => a.message !== message));
   };
 
-  ngAfterViewInit(): void {
-
-  }
-
   createChart() {
-    if (!this.chartCanvas) return;
-
-    const records = this.sortedFuelRecords();
-    if (records.length < 2) return;
-
-    const labels: string[] = [];
-    const data: number[] = [];
-    for (let i = 1; i < records.length; i++) {
-      const km = records[i].mileage - records[i - 1].mileage;
-      if (km > 0) {
-        const consumption = (records[i].liters / km) * 100;
-        labels.push(records[i].date);
-        data.push(Math.round(consumption * 10) / 10);
-      }
-    }
-
-    new Chart(this.chartCanvas.nativeElement, {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: 'л/100км',
-          data: data,
-          borderColor: '#3b82f6',
-          tension: 0.4,
-          fill: false
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-
-
+    this.chart = createFuelChart(
+      this.chartCanvas.nativeElement,
+      this.sortedFuelRecords(),
+      this.chart
+    );
   }
 } 
