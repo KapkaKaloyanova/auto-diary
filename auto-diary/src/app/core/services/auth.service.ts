@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { AuthResponse, User, UserLogin, UserRegister } from '../../shared/interfaces/user';
 import { Observable, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private httpClient = inject(HttpClient);
-  private apiUrl = 'http://localhost:3030/users';
+  private apiUrl = `${environment.apiUrl}/users`;
 
   private user = signal<User | null>(JSON.parse(localStorage.getItem('user') || 'null'));
 

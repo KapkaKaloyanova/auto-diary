@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DocumentRecord } from '../../shared/interfaces/document-record';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DocumentRecordService {
   private httpClient = inject(HttpClient);
-  private apiUrl = 'http://localhost:3030/data/documents';
+  private apiUrl = `${environment.apiUrl}/data/documents`;
 
 
   createDocumentRecord(documentData: Partial<DocumentRecord>): Observable<DocumentRecord> {

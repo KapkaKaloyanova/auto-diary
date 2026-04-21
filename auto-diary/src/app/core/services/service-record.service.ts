@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ServiceRecord } from '../../shared/interfaces/service-record';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServiceRecordService {
   private httpClient = inject(HttpClient);
-  private apiUrl = 'http://localhost:3030/data/service-records';
+  private apiUrl = `${environment.apiUrl}/data/service-records`;
 
   createServiceRecord(serviceData: Partial<ServiceRecord>): Observable<ServiceRecord> {
     return this.httpClient.post<ServiceRecord>(this.apiUrl, serviceData);
