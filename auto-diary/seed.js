@@ -20,7 +20,7 @@ const adminCars = [
     initialMileage: 45000,
     fuelType: 'diesel',
     imageUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/2019_BMW_320d_M_Sport_%28G20%29%2C_front_8.28.19.jpg/1280px-2019_BMW_320d_M_Sport_%28G20%29%2C_front_8.28.19.jpg',
+      'https://www.independent.co.uk/life-style/motoring/road-tests/bmw-320d-6273520.html',
   },
   {
     brand: 'Toyota',
