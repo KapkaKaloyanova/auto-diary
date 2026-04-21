@@ -20,7 +20,7 @@ const adminCars = [
     initialMileage: 45000,
     fuelType: 'diesel',
     imageUrl:
-      'https://www.independent.co.uk/life-style/motoring/road-tests/bmw-320d-6273520.html',
+      'https://static.independent.co.uk/s3fs-public/thumbnails/image/2011/12/07/17/5306954.jpg?quality=75&width=1250&crop=3%3A2%2Csmart&auto=webp',
   },
   {
     brand: 'Toyota',
@@ -30,7 +30,7 @@ const adminCars = [
     initialMileage: 12000,
     fuelType: 'hybrid',
     imageUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/2020_Toyota_Yaris_Icon_1.5_Front.jpg/1280px-2020_Toyota_Yaris_Icon_1.5_Front.jpg',
+      'https://scene7.toyota.eu/is/image/toyotaeurope/TOY_MULTICAR_II_2024_TME_IMG_YARIS_0038-2:Medium-Landscape?ts=1746777104860&resMode=sharp2&op_usm=1.75,0.3,2,0://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/2020_Toyota_Yaris_Icon_1.5_Front.jpg/1280px-2020_Toyota_Yaris_Icon_1.5_Front.jpg',
   },
   {
     brand: 'Volkswagen',
@@ -40,7 +40,7 @@ const adminCars = [
     initialMileage: 87000,
     fuelType: 'diesel',
     imageUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/VW_Golf_VII_Facelift_front_MK1_Motor_Show_2017.jpg/1280px-VW_Golf_VII_Facelift_front_MK1_Motor_Show_2017.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/VW_Golf_VII_Facelift_front_MK1_Motor_Show_2017.jpg/1280px-https://cdn.jdpower.com/JDPA_2022%20Volkswagen%20Golf%20R%20Blue%20Rear%20Quarter%20View.jpg.jpg',
   },
 ];
 
